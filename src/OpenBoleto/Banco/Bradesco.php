@@ -38,8 +38,8 @@ use OpenBoleto\BoletoAbstract;
  * @license    MIT License
  * @version    1.0
  */
-class Bradesco extends BoletoAbstract
-{
+class Bradesco extends BoletoAbstract {
+
     /**
      * Código do banco
      * @var string
@@ -65,7 +65,7 @@ class Bradesco extends BoletoAbstract
      * Define as carteiras disponíveis para este banco
      * @var array
      */
-    protected $carteiras = array('3', '6', '9');
+    protected $carteiras = array('3', '6', '9', '09');
 
     /**
      * Trata-se de código utilizado para identificar mensagens especificas ao cedente, sendo
@@ -81,8 +81,7 @@ class Bradesco extends BoletoAbstract
      *
      * @return string
      */
-    protected function gerarNossoNumero()
-    {
+    protected function gerarNossoNumero() {
         return $this->getSequencial();
     }
 
@@ -91,13 +90,12 @@ class Bradesco extends BoletoAbstract
      *
      * @return string
      */
-    public function getCampoLivre()
-    {
+    public function getCampoLivre() {
         return static::zeroFill($this->getAgencia(), 4) .
-            static::zeroFill($this->getCarteira(), 2) .
-            static::zeroFill($this->getNossoNumero(), 11) .
-            static::zeroFill($this->getConta(), 7) .
-            '0';
+                static::zeroFill($this->getCarteira(), 2) .
+                static::zeroFill($this->getNossoNumero(), 11) .
+                static::zeroFill($this->getConta(), 7) .
+                '0';
     }
 
     /**
@@ -106,8 +104,7 @@ class Bradesco extends BoletoAbstract
      * @param int $cip
      * @return Bradesco
      */
-    public function setCip($cip)
-    {
+    public function setCip($cip) {
         $this->cip = $cip;
         return $this;
     }
@@ -117,8 +114,7 @@ class Bradesco extends BoletoAbstract
      *
      * @return int
      */
-    public function getCip()
-    {
+    public function getCip() {
         return $this->cip;
     }
 
@@ -127,11 +123,25 @@ class Bradesco extends BoletoAbstract
      *
      * @return array
      */
-    public function getViewVars()
-    {
+    public function getViewVars() {
         return array(
             'cip' => self::zeroFill($this->getCip(), 3),
             'mostra_cip' => true,
         );
     }
+
+    public function setSequencial($numeroDocumento) {
+        parent::setSequencial(substr($numeroDocumento, 0, 11));
+        return $this;
+    }
+
+    public function setAgencia($agencia) {
+
+        if (strlen($agencia) > 4) {
+            $agencia = substr($agencia, 1, 4);
+        }
+        parent::setAgencia($agencia);
+        return $this;
+    }
+
 }
