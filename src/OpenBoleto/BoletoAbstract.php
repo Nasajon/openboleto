@@ -1229,6 +1229,7 @@ abstract class BoletoAbstract
             'uso_banco' => $this->getUsoBanco(),
             'codigo_barras' => $this->getImagemCodigoDeBarras(),
             'resource_path' => $this->getResourcePath(),
+            'dv_nosso_numero' => $this->getDigitoVerificadorNossoNumero($this->getNossoNumero(), $this->getCarteira())
         );
         extract($this->data);
 
@@ -1240,6 +1241,8 @@ abstract class BoletoAbstract
 
         return ob_get_clean();
     }
+    
+    protected abstract function getDigitoVerificadorNossoNumero($nossoNumero, $carteira);
 
     /**
     * Retorna o campo Agência/Cedente do boleto

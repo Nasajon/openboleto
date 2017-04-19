@@ -85,6 +85,32 @@ class Bradesco extends BoletoAbstract {
         return $this->getSequencial();
     }
 
+    public function getDigitoVerificadorNossoNumero($nossoNumero, $carteira) {
+
+        $nossoNumero = trim($carteira . $nossoNumero);
+
+        $nossoNumArray = str_split($nossoNumero);
+        $soma = 0;
+        $peso = 2;
+
+        for ($index = (strlen($nossoNumero) - 1); $index >= 0; $index--) {
+            $soma += intval($nossoNumArray[$index]) * $peso;
+            $peso++;
+            if ($peso > 7) {
+                $peso = 2;
+            }
+        }
+
+        switch ($soma % 11) {
+            case 1:
+                return "P";
+            case 0:
+                return "0";
+            default:
+                return 11 - ($soma % 11);
+        }
+    }
+
     /**
      * Método para gerar o código da posição de 20 a 44
      *
