@@ -1229,7 +1229,8 @@ abstract class BoletoAbstract
             'uso_banco' => $this->getUsoBanco(),
             'codigo_barras' => $this->getImagemCodigoDeBarras(),
             'resource_path' => $this->getResourcePath(),
-            'dv_nosso_numero' => $this->getDigitoVerificadorNossoNumero($this->getNossoNumero(), $this->getCarteira())
+            'dv_nosso_numero' => $this->getDigitoVerificadorNossoNumero($this->getNossoNumero(), $this->getCarteira()),
+            'cedente_tipodoc_doc' => $this->getTipoDocumentoEDocumentoCedente()
         );
         extract($this->data);
 
@@ -1241,6 +1242,8 @@ abstract class BoletoAbstract
 
         return ob_get_clean();
     }
+    
+    protected abstract function getTipoDocumentoEDocumentoCedente();
     
     protected abstract function getDigitoVerificadorNossoNumero($nossoNumero, $carteira);
 

@@ -84,6 +84,11 @@ class Bradesco extends BoletoAbstract {
     protected function gerarNossoNumero() {
         return $this->getSequencial();
     }
+    
+    public function getTipoDocumentoEDocumentoCedente() {
+        $documentoCedente = " - ".$this->getCedente()->getTipoDocumento().": ".$this->getCedente()->getDocumento();
+        return $documentoCedente;
+    }
 
     public function getDigitoVerificadorNossoNumero($nossoNumero, $carteira) {
 

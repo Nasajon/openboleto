@@ -48,7 +48,7 @@
         <td colspan="7">
             <div class="titulo">Beneficiário</div>
             <div class="conteudo">
-                <?php echo $cedente." - CNPJ:".$cedente_cpf_cnpj; ?><br>
+                <?php echo $cedente.$cedente_tipodoc_doc; ?><br>
                 <?php echo $cedente_endereco1; ?><br>
                 <?php echo $cedente_endereco2; ?>
             </div>
@@ -173,7 +173,7 @@
     <tr>
         <td colspan="7">
             <div class="titulo">Pagador</div>
-            <div class="conteudo"><?php echo $sacado ?></div>
+            <div class="conteudo"><?php echo $sacado.$cedente_tipodoc_doc; ?></div>
             <div class="conteudo"><?php echo $sacado_endereco1 ?></div>
             <div class="conteudo"><?php echo $sacado_endereco2 ?></div>
 
